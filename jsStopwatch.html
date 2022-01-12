@@ -35,14 +35,19 @@
 </html>
 
 <script>
+	var stopWatch = true;
 	document.querySelector("#main").addEventListener("click", secFunc);
 	var dis = document.querySelector("#sec");
 	var min = document.querySelector("#min");
 	var hour = document.querySelector("#hr");
+		// var dis = document.querySelector("#sec");
+		// var min = document.querySelector("#min");
+		// var hour = document.querySelector("#hr");
 	var count = 0; //sec
 	var count2 = 0; //min
 	var count3 = 0; //hr
 	function secFunc() {
+		if(stopWatch == true) {
 		var time = setInterval(function () {
 			count++;
 			// dis.innerHTML = `${count}sec`;
@@ -67,11 +72,12 @@
                 hour.innerHTML = `${count3}hr`;
             }
 		}, 1000);
-
-
+	}
+	stopWatch = false;
         document.querySelector("#pause").addEventListener("click", pauseFunc);
         function pauseFunc() {
             clearInterval(time);
+			stopWatch = true
         }
 
         document.querySelector("#reset").addEventListener("click", resetFunc);
@@ -84,6 +90,8 @@
             dis.innerHTML = `${count}sec`;
             min.innerHTML = `${count2}min`;
             hour.innerHTML = `${count3}hr`;
+
+			stopWatch = true
         }
 	}
 
