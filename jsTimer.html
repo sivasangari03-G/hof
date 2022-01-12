@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>js Timer</title>
+		<style>
+			input {
+				padding: 10px 20px;
+			}
+			#container {
+				display: flex;
+			}
+            button {
+                padding: 10px 20px;
+                margin: 30px;
+                font-size: 25px;
+                cursor: pointer;
+            }
+		</style>
+	</head>
+	<body>
+		<input type="text" placeholder="hour" id="hrBox"/><input type="text" placeholder="minute" id="minuteBox" /><input type="text" placeholder="second" id="secBox" />
+		<div id="container">
+			<h1 id="hr">0hr</h1>
+			<h1>:</h1>
+			<h1 id="min">0min</h1>
+			<h1>:</h1>
+			<h1 id="sec">0sec</h1>
+		</div>
+        <button id="start">START</button>
+        <button id="pause">PAUSE</button>
+        <button id="reset">RESET</button>
+	</body>
+</html>
+
+
+<script>
+    let c = true;
+    var countHr;
+    var countMin;
+    var countSec;
+    var timer = true;
+    var myIntervalHr;
+
+    var timerHr = document.querySelector("#hr") //h1 hr
+        var timerMin = document.querySelector("#min") //h1 min
+        var timerSec = document.querySelector("#sec") //h1 sec
+    document.querySelector("#start").addEventListener("click", startFunc) // start button
+    function startFunc() {
+        if(timer == true) {
+        if (c == true) {
+            countHr = document.querySelector("#hrBox").value;   // inputbox hr
+            countMin = document.querySelector("#minuteBox").value; //inputbox min
+            countSec = document.querySelector("#secBox").value;  //inputbox sec
+        //console.log(hours,minutes,seconds); 
+            c = false
+        }
+
+        // var timerHr = document.querySelector("#hr") //h1 hr
+        // var timerMin = document.querySelector("#min") //h1 min
+        // var timerSec = document.querySelector("#sec") //h1 sec
+
+        // timerHr.innerHTML = hours
+        // timerMin.innerHTML = minutes
+        // timerSec.innerHTML = seconds
+
+        // var countHr = hours;
+        // var countMin = minutes;
+        // var countSec = seconds;
+
+        myIntervalHr = setInterval(function() {
+            if(countSec > 0) {
+                countSec = countSec - 1
+            }
+            if(countSec == 0 && countMin > 0) {
+                //countSec = countSec - 1;
+                //timerSec.innerHTML = `${countSec}sec`;
+                countSec = 60;
+                countMin = countMin - 1;
+            }
+            if(countMin == 0 && countHr > 0) {
+                //countSec = countSec - 1;
+                //timerSec.innerHTML = `${countSec}sec`;
+                countMin = 60;
+                countHr = countHr - 1;
+            }
+
+            // if(countMin > 0 && countSec == 0) {
+            //     countSec = 60;
+            //     countSec = countSec - 1;
+            //     if(countSec == 0) {
+            //         countMin = countMin - 1;
+            //         //timerMin.innerHTML = `${countMin}min`;
+            //     }
+            //     //timerMin.innerHTML = `${countMin}min`;
+            // }
+
+            // if(countHr > 0 && countMin == 0 && countSec == 0) {
+            //     countHr = countHr - 1;
+            //     //timerHr.innerHTML = `${countHr}hr`;
+            // }
+            if(countSec == 0) {
+                clearInterval(myIntervalHr)
+            }
+            timerSec.innerHTML = `${countSec}sec`;
+            timerMin.innerHTML = `${countMin}min`;
+            timerHr.innerHTML = `${countHr}hr`;
+
+        },1000)
+    }
+    timer = false;
+    }
+
+    document.querySelector("#pause").addEventListener("click", pauseFunc);
+        function pauseFunc() {
+            clearInterval(myIntervalHr);
+            timer = true;
+        }
+         document.querySelector("#reset").addEventListener("click", resetFunc);
+        function resetFunc() {
+             countHr = 0;
+             countMin = 0;
+             countSec = 0;
+            clearInterval(myIntervalHr);
+
+            timerSec.innerHTML = `${countSec}sec`;
+            timerMin.innerHTML = `${countMin}min`;
+            timerHr.innerHTML = `${countHr}hr`;
+            timer = true;
+            c = true;
+        }
+</script>
